@@ -1,0 +1,12 @@
+---
+- hosts: app
+  become: yes
+
+  tasks:
+    - name: Ask hostname
+      command: hostname
+      register: host
+      changed_when: false
+    
+    - debug:
+        msg: "{{ host.stdout }}"
