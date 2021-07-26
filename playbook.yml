@@ -12,9 +12,9 @@
         msg: "{{ host.stdout }}"
 
     - name: Ask ip address
-      command: ifconfig | grep inet
+      command: "ifconfig | grep inet"
       register: ipaddr
       changed_when: false
 
     - debug:
-        msg: "{{ host.stdout }}"
+        msg: "{{ ipaddr.stdout }}"
