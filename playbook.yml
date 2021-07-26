@@ -17,4 +17,4 @@
       changed_when: false
 
     - debug:
-        msg: "{{ ipaddr.stdout }}"
+        msg: "{{ ipaddr.stdout \n host.stdout}}"
