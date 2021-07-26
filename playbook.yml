@@ -7,6 +7,14 @@
       command: hostname
       register: host
       changed_when: false
-    
+
     - debug:
         msg: "{{ host.stdout }}"
+
+    - name: Ask ip address
+      command: ifconfig | grep inet
+      register: ipaddr
+      changed_when: false
+
+    - debug:
+      msg: "{{ host.stdout }}"
