@@ -17,4 +17,4 @@
       changed_when: false
 
     - debug:
-      msg: "{{ host.stdout }}"
+        msg: "{{ host.stdout }}"
