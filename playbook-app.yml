@@ -1,0 +1,11 @@
+---
+- hosts: app
+
+  pre_tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: True
+      become: yes
+
+  roles:
+    - {role: flask}

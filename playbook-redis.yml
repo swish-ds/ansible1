@@ -1,0 +1,11 @@
+---
+- hosts: db
+
+  pre_tasks:
+    - name: Update and upgrade yum packages
+      yum:
+        update_cache: True
+      become: yes
+
+  roles:
+    - {role: redis, become: yes}

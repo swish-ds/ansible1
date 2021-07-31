@@ -1,0 +1,8 @@
+---
+flask_packages:
+  - flask==2.0.1
+  - gunicorn==20.1.0
+  - redis==3.5.3
+  - setuptools
+
+app_path: /home/vagrant/flask_app

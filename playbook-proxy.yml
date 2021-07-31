@@ -1,0 +1,11 @@
+---
+- hosts: proxy
+
+  pre_tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: True
+      become: yes
+
+  roles:
+    - {role: proxy, become: yes}

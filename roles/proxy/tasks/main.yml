@@ -1,0 +1,20 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Copy config file
+  copy:
+    src: files/flask-redis-app
+    dest: /etc/nginx/sites-available/flask-redis-app
+  notify: restart nginx
+
+- name: Check if flask-redis-app symlink exists
+  shell: ls /etc/nginx/sites-enabled
+  register: symlink
+
+- name: Create symlink for flask-redis-app
+  shell: "ln -s /etc/nginx/sites-available/flask-redis-app /etc/nginx/sites-enabled/"
+  when: "not 'flask-redis-app' in symlink['stdout']"
+  notify: restart nginx

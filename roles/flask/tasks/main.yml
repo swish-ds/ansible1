@@ -1,0 +1,44 @@
+---
+- name: Install pip
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python3-pip
+    - python-pip
+  become: yes
+
+- name: Pip install required modules
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items: "{{ flask_packages }}"
+
+- name: Copy Upstart configuration
+  template:
+    src: files/hello-world.upstart.j2
+    dest: /etc/systemd/system/hello-world.service
+  become: yes
+
+- name: Copy conf file
+  template:
+    src: files/gunicorn_conf.py
+    dest: /home/vagrant/gunicorn_conf.py
+
+- name: Make sure app diectory exists
+  file:
+    path: "{{ app_path }}"
+    state: directory
+
+- name: Copy app.py file
+  copy:
+    src: files/app.py
+    dest: "{{ app_path }}/app.py"
+  notify: restart hello-world
+
+- name: Make sure our server is running
+  service:
+    name: hello-world
+    state: started
+    enabled: yes
+  become: yes

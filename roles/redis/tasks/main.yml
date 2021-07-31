@@ -1,0 +1,22 @@
+---
+- name: Install redis
+  yum:
+    name: "{{ redis_packages }}"
+    state: present
+
+- name: Make sure redis is running
+  service:
+    name: redis
+    state: started
+    enabled: yes
+
+- name: Change redis bind option
+  shell: sed -i 's/bind 127.0.0.1/bind 0.0.0.0/g' /etc/redis.conf
+  notify: restart redis
+
+#+ sudo yum install epel-release
+#+ sudo yum install redis
+#+ sudo systemctl start redis
+#+ sudo systemctl enable redis
+#+ sudo sed -i 's/bind 0.0.0.0/bind 127.0.0.1/g' /etc/redis.conf
+#+ sudo sed -i 's/bind 127.0.0.1/bind 0.0.0.0/g' /etc/redis.conf

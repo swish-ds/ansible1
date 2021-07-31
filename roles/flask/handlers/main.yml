@@ -1,0 +1,4 @@
+---
+- name: restart hello-world
+  service: name=hello-world state=restarted
+  become: yes

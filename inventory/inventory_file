@@ -1,0 +1,16 @@
+; 192.168.60.8 ansible_ssh_user=vagran ansible_ssh_pass=vagrant ansible_ssh_port=22 
+; ansible_ssh_private_key_file=~/.ssh/insecure_private_key
+[db]
+192.168.1.110
+
+[app]
+192.168.1.149 #app1
+192.168.1.218 #app2
+
+[proxy]
+192.168.1.170
+
+[orc:children]
+db
+app
+proxy

@@ -1,0 +1,11 @@
+[Unit]
+Description=hello-world
+After=network.target
+
+[Service]
+User=vagrant
+Group=vagrant
+WorkingDirectory={{ app_path }}
+ExecStart=/home/vagrant/.local/bin/gunicorn --bind 0.0.0.0:8000 --log-level=debug --access-logfile /home/vagrant/gaccess.log --access-logformat '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"' --error-logfile /home/vagrant/gerror.log app:app
+[Install]
+WantedBy=multi-user.target

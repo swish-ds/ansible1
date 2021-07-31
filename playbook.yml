@@ -1,20 +1,11 @@
 ---
-- hosts: app
-  become: yes
+- hosts: all
 
-  tasks:
-    - name: Ask hostname
-      command: hostname
-      register: host
-      changed_when: false
+- import_playbook: playbook-app.yml
+  tags: [ app ]
 
-    - debug:
-        msg: "{{ host.stdout }}"
+- import_playbook: playbook-proxy.yml
+  tags: [ proxy ]
 
-    - name: Ask ip address
-      command: "ifconfig"
-      register: ipaddr
-      changed_when: false
-
-    - debug:
-        msg: "{{ ipaddr.stdout }} {{host.stdout}}"
+- import_playbook: playbook-redis.yml
+  tags: [ db ]
