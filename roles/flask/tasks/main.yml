@@ -1,36 +1,27 @@
 ---
 - name: Install pip
   apt:
-    name: "{{ item }}"
+    name: ['python3-pip', 'python-pip']
     state: present
-  with_items:
-    - python3-pip
-    - python-pip
   become: yes
 
 - name: Pip install required modules
   pip:
-    name: "{{ item }}"
+    name: "{{ flask_packages }}"
     executable: pip3
-  with_items: "{{ flask_packages }}"
 
-- name: Copy Upstart configuration
+- name: Copy service configuration
   template:
-    src: files/hello-world.upstart.j2
+    src: files/hello-world.service.j2
     dest: /etc/systemd/system/hello-world.service
   become: yes
-
-- name: Copy conf file
-  template:
-    src: files/gunicorn_conf.py
-    dest: /home/vagrant/gunicorn_conf.py
 
 - name: Make sure app diectory exists
   file:
     path: "{{ app_path }}"
     state: directory
 
-- name: Copy app.py file
+- name: Copy app.py file to app diectory
   copy:
     src: files/app.py
     dest: "{{ app_path }}/app.py"

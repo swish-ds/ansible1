@@ -4,7 +4,7 @@
     name: nginx
     state: present
 
-- name: Copy config file
+- name: Copy nginx config file
   copy:
     src: files/flask-redis-app
     dest: /etc/nginx/sites-available/flask-redis-app

@@ -2,7 +2,7 @@
 - hosts: proxy
 
   pre_tasks:
-    - name: Update and upgrade apt packages
+    - name: Update apt cache
       apt:
         update_cache: True
       become: yes

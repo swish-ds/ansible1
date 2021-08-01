@@ -2,7 +2,7 @@
 - hosts: db
 
   pre_tasks:
-    - name: Update and upgrade yum packages
+    - name: Update yum cache
       yum:
         update_cache: True
       become: yes
